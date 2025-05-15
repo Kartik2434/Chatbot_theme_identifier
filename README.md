@@ -33,7 +33,7 @@ cd chatbot_theme_identifier
 
 ### 2. Install Dependencies
 ```bash
-pip install -r backend/requirements.txt
+pip install -r requirements.txt
 ```
 
 ### 3. Set Your Groq API Key
