@@ -1,0 +1,62 @@
+[
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_1",
+    "text": "def setup_response_generator():\n    import torch, random\n    from transformers import TextStreamer\n    import ipywidgets as widgets\n    from IPython.display import display, Javascript, HTML",
+    "location": "Paragraph 1"
+  },
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_2",
+    "text": "# --- CUSTOM THEME CSS with center alignment, enhanced header, and hide caret ---\n    css = \"\"\"\n    <style>\n    .fancy-output-header {\n      font-family: 'Segoe UI', Tahoma, sans-serif;\n      font-weight: bold;\n      color: #0ff;\n      margin-bottom: 8px;\n      text-shadow: 0 0 6px #0ff;\n      animation: zoomFadeIn 1s ease-in-out forwards;\n      text-align: center;\n      width: 100%;\n      font-size: 1.5em;\n    }\n    .header-container {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      margin-bottom: 8px;\n    }\n    .scrollable-output textarea {\n      background: #111;\n      color: #0ff;\n      font-family: monospace;\n      padding: 12px;\n      border: 2px solid #0ff;\n      border-radius: 8px;\n      white-space: pre-wrap;\n      overflow-y: auto;\n      width: 80%;\n      max-height: 250px;\n      animation: pulse 2s infinite ease-in-out;\n      caret-color: transparent; /* hide text cursor */\n    }\n    @keyframes pulse {\n      0%,100% { box-shadow: 0 0 8px #0ff; }\n      50%     { box-shadow: 0 0 16px #0ff; }\n    }\n    @keyframes zoomFadeIn {\n      from { opacity: 0; transform: scale(0.5); }\n      to { opacity: 1; transform: scale(1); }\n    }\n    </style>\n    \"\"\"\n    display(HTML(css))",
+    "location": "Paragraph 2"
+  },
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_3",
+    "text": "# Custom TextStreamer that writes into a Textarea and auto-scrolls it\n    class TextareaStreamer(TextStreamer):\n        def __init__(self, tokenizer, textarea, **kwargs):\n            super().__init__(tokenizer,\n                             skip_prompt=True,\n                             skip_special_tokens=True,\n                             **kwargs)\n            self.textarea = textarea",
+    "location": "Paragraph 3"
+  },
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_4",
+    "text": "def put(self, text):\n            # Append new text\n            if not isinstance(text, (torch.Tensor, list, int)):\n                self.textarea.value += str(text)\n            else:\n                if isinstance(text, torch.Tensor):\n                    token_ids = text.tolist()\n                elif isinstance(text, int):\n                    token_ids = [text]\n                else:\n                    token_ids = text\n                if any(isinstance(el, list) for el in token_ids):\n                    token_ids = token_ids[0]\n                token_ids = [token_ids[-1]]\n                decoded = self.tokenizer.decode(token_ids, skip_special_tokens=True)\n                self.textarea.value += decoded",
+    "location": "Paragraph 4"
+  },
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_5",
+    "text": "# Auto-scroll via JS\n            display(Javascript(\"\"\"\n            (function() {\n              let ta = document.querySelector('.scrollable-output textarea');\n              if (ta) { ta.scrollTop = ta.scrollHeight; }\n            })();\n            \"\"\"))",
+    "location": "Paragraph 5"
+  },
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_6",
+    "text": "# Build the header + readonly textarea in a centered container\n    header_html = '<div class=\"header-container\">\u26a1 <span class=\"fancy-output-header\">\ud835\udde0\ud835\uddf2\ud835\uddf1\ud835\udde0\ud835\uddf6\ud835\uddfb\ud835\uddf1AI</span> \u26a1</div>'\n    header = widgets.HTML(header_html)\n    output_area = widgets.Textarea(\n        value='',\n        placeholder='Response will stream here\u2026',\n        disabled=True,  # make read-only\n        layout=widgets.Layout(width='80%', height='250px')\n    )\n    output_area.add_class('scrollable-output')",
+    "location": "Paragraph 6"
+  },
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_7",
+    "text": "container = widgets.VBox([header, output_area], layout=widgets.Layout(align_items='center'))\n    display(container)",
+    "location": "Paragraph 7"
+  },
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_8",
+    "text": "# generate_response logic remains unchanged\n    def generate_response(question):\n        output_area.value = \"\"\n        if check_is_medical(question):\n            prompt = medical_prompt.format(question=question) + (tokenizer.eos_token or \"\")\n            device = \"cuda\" if torch.cuda.is_available() else \"cpu\"\n            inputs = tokenizer(prompt, return_tensors=\"pt\").to(device)",
+    "location": "Paragraph 8"
+  },
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_9",
+    "text": "streamer = TextareaStreamer(tokenizer, textarea=output_area)\n            _ = model.generate(\n                **inputs,\n                max_new_tokens=1000,\n                eos_token_id=tokenizer.eos_token_id,\n                pad_token_id=tokenizer.pad_token_id,\n                early_stopping=True,\n                use_cache=True,\n                streamer=streamer,\n            )\n        else:\n            output_area.value = random.choice(refusal_statements)",
+    "location": "Paragraph 9"
+  },
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "chunk_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunk_10",
+    "text": "globals()['generate_response'] = generate_response\n    globals()['output_area'] = output_area",
+    "location": "Paragraph 10"
+  }
+]

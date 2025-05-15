@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+pytesseract
+pdf2image
+Pillow
+chromadb
+openai
+tqdm
+python-multipart
+sentence-transformers 

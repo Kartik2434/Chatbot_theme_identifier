@@ -1,0 +1,72 @@
+[
+  {
+    "doc_id": "39ff2043-0fbe-400d-b323-ba81fb92ed5e",
+    "filename": "dem2.txt",
+    "upload_time": "2025-05-15T09:45:37.839788",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\39ff2043-0fbe-400d-b323-ba81fb92ed5e.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\39ff2043-0fbe-400d-b323-ba81fb92ed5e_chunks.json"
+  },
+  {
+    "doc_id": "84368ea9-fbb0-4e75-812e-f6468c40cc3a",
+    "filename": "names.txt",
+    "upload_time": "2025-05-15T09:47:50.710686",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\84368ea9-fbb0-4e75-812e-f6468c40cc3a.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\84368ea9-fbb0-4e75-812e-f6468c40cc3a_chunks.json"
+  },
+  {
+    "doc_id": "54ab49fe-b06c-497c-99e5-45269d7ef19d",
+    "filename": "names.txt",
+    "upload_time": "2025-05-15T09:48:18.229008",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\54ab49fe-b06c-497c-99e5-45269d7ef19d.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\54ab49fe-b06c-497c-99e5-45269d7ef19d_chunks.json"
+  },
+  {
+    "doc_id": "904e89d5-6b4a-46e5-a70a-5897df139196",
+    "filename": "names.txt",
+    "upload_time": "2025-05-15T09:48:18.287004",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\904e89d5-6b4a-46e5-a70a-5897df139196.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\904e89d5-6b4a-46e5-a70a-5897df139196_chunks.json"
+  },
+  {
+    "doc_id": "237b9936-5b28-43b1-b31a-4e1a453d9d48",
+    "filename": "names.txt",
+    "upload_time": "2025-05-15T10:11:59.772375",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\237b9936-5b28-43b1-b31a-4e1a453d9d48.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\237b9936-5b28-43b1-b31a-4e1a453d9d48_chunks.json"
+  },
+  {
+    "doc_id": "d26c4f81-e316-41b2-bd23-22b4e3aea7e7",
+    "filename": "names.txt",
+    "upload_time": "2025-05-15T10:12:13.727076",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\d26c4f81-e316-41b2-bd23-22b4e3aea7e7.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\d26c4f81-e316-41b2-bd23-22b4e3aea7e7_chunks.json"
+  },
+  {
+    "doc_id": "66f0f7d2-77cd-4032-a4fd-1e674c3bad6b",
+    "filename": "names.txt",
+    "upload_time": "2025-05-15T10:12:13.783067",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\66f0f7d2-77cd-4032-a4fd-1e674c3bad6b.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\66f0f7d2-77cd-4032-a4fd-1e674c3bad6b_chunks.json"
+  },
+  {
+    "doc_id": "73216652-85fc-4a69-9f4a-3d329a4816c2",
+    "filename": "names_person.txt",
+    "upload_time": "2025-05-15T10:20:52.765057",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\73216652-85fc-4a69-9f4a-3d329a4816c2.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\73216652-85fc-4a69-9f4a-3d329a4816c2_chunks.json"
+  },
+  {
+    "doc_id": "7dd96942-3345-4323-a4c4-0c819829494d",
+    "filename": "names_person.txt",
+    "upload_time": "2025-05-15T10:21:15.314824",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\7dd96942-3345-4323-a4c4-0c819829494d.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\7dd96942-3345-4323-a4c4-0c819829494d_chunks.json"
+  },
+  {
+    "doc_id": "fbfaf71b-3223-4abf-b508-cf37ce3e41da",
+    "filename": "names_person.txt",
+    "upload_time": "2025-05-15T10:21:15.402381",
+    "text_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\fbfaf71b-3223-4abf-b508-cf37ce3e41da.txt",
+    "chunks_path": "C:\\Users\\PC-69\\Desktop\\ai_chatbot_project\\backend\\data\\fbfaf71b-3223-4abf-b508-cf37ce3e41da_chunks.json"
+  }
+]

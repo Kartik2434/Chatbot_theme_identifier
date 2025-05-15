@@ -1,0 +1,123 @@
+def setup_response_generator():
+    import torch, random
+    from transformers import TextStreamer
+    import ipywidgets as widgets
+    from IPython.display import display, Javascript, HTML
+
+    # --- CUSTOM THEME CSS with center alignment, enhanced header, and hide caret ---
+    css = """
+    <style>
+    .fancy-output-header {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      font-weight: bold;
+      color: #0ff;
+      margin-bottom: 8px;
+      text-shadow: 0 0 6px #0ff;
+      animation: zoomFadeIn 1s ease-in-out forwards;
+      text-align: center;
+      width: 100%;
+      font-size: 1.5em;
+    }
+    .header-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .scrollable-output textarea {
+      background: #111;
+      color: #0ff;
+      font-family: monospace;
+      padding: 12px;
+      border: 2px solid #0ff;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      width: 80%;
+      max-height: 250px;
+      animation: pulse 2s infinite ease-in-out;
+      caret-color: transparent; /* hide text cursor */
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 8px #0ff; }
+      50%     { box-shadow: 0 0 16px #0ff; }
+    }
+    @keyframes zoomFadeIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    </style>
+    """
+    display(HTML(css))
+
+    # Custom TextStreamer that writes into a Textarea and auto-scrolls it
+    class TextareaStreamer(TextStreamer):
+        def __init__(self, tokenizer, textarea, **kwargs):
+            super().__init__(tokenizer,
+                             skip_prompt=True,
+                             skip_special_tokens=True,
+                             **kwargs)
+            self.textarea = textarea
+
+        def put(self, text):
+            # Append new text
+            if not isinstance(text, (torch.Tensor, list, int)):
+                self.textarea.value += str(text)
+            else:
+                if isinstance(text, torch.Tensor):
+                    token_ids = text.tolist()
+                elif isinstance(text, int):
+                    token_ids = [text]
+                else:
+                    token_ids = text
+                if any(isinstance(el, list) for el in token_ids):
+                    token_ids = token_ids[0]
+                token_ids = [token_ids[-1]]
+                decoded = self.tokenizer.decode(token_ids, skip_special_tokens=True)
+                self.textarea.value += decoded
+
+            # Auto-scroll via JS
+            display(Javascript("""
+            (function() {
+              let ta = document.querySelector('.scrollable-output textarea');
+              if (ta) { ta.scrollTop = ta.scrollHeight; }
+            })();
+            """))
+
+    # Build the header + readonly textarea in a centered container
+    header_html = '<div class="header-container">⚡ <span class="fancy-output-header">𝗠𝗲𝗱𝗠𝗶𝗻𝗱AI</span> ⚡</div>'
+    header = widgets.HTML(header_html)
+    output_area = widgets.Textarea(
+        value='',
+        placeholder='Response will stream here…',
+        disabled=True,  # make read-only
+        layout=widgets.Layout(width='80%', height='250px')
+    )
+    output_area.add_class('scrollable-output')
+
+    container = widgets.VBox([header, output_area], layout=widgets.Layout(align_items='center'))
+    display(container)
+
+    # generate_response logic remains unchanged
+    def generate_response(question):
+        output_area.value = ""
+        if check_is_medical(question):
+            prompt = medical_prompt.format(question=question) + (tokenizer.eos_token or "")
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            inputs = tokenizer(prompt, return_tensors="pt").to(device)
+
+            streamer = TextareaStreamer(tokenizer, textarea=output_area)
+            _ = model.generate(
+                **inputs,
+                max_new_tokens=1000,
+                eos_token_id=tokenizer.eos_token_id,
+                pad_token_id=tokenizer.pad_token_id,
+                early_stopping=True,
+                use_cache=True,
+                streamer=streamer,
+            )
+        else:
+            output_area.value = random.choice(refusal_statements)
+
+    globals()['generate_response'] = generate_response
+    globals()['output_area'] = output_area
